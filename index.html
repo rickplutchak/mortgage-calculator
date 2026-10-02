@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>MoneyPro Mortgage Calculator</title>
+
+<style>
+
+body{
+margin:0;
+padding:30px;
+background:#0c0c0c;
+font-family:Calibri,Arial,sans-serif;
+color:#fff;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+}
+
+.calculator{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:30px;
+}
+
+@media(max-width:900px){
+.calculator{
+grid-template-columns:1fr;
+}
+}
+
+.panel{
+background:#151515;
+padding:30px;
+border-radius:24px;
+box-shadow:0 0 20px rgba(0,0,0,.25);
+}
+
+h1{
+margin-top:0;
+font-size:34px;
+}
+
+label{
+display:block;
+margin-top:18px;
+margin-bottom:8px;
+font-weight:bold;
+font-size:16px;
+}
+
+input,
+select{
+width:100%;
+padding:14px;
+font-size:18px;
+border-radius:12px;
+border:none;
+background:#222;
+color:#fff;
+}
+
+button{
+width:100%;
+padding:18px;
+margin-top:25px;
+background:#22c55e;
+color:#fff;
+font-size:20px;
+font-weight:bold;
+border:none;
+border-radius:12px;
+cursor:pointer;
+}
+
+button:hover{
+background:#16a34a;
+}
+
+.chart-wrap{
+position:relative;
+width:320px;
+height:320px;
+margin:auto;
+}
+
+.center-payment{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+text-align:center;
+width:220px;
+}
+
+.payment{
+font-size:48px;
+font-weight:bold;
+}
+
+.permonth{
+color:#ccc;
+font-size:22px;
+}
+
+.legend{
+margin-top:20px;
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 0;
+border-bottom:1px solid #333;
+font-size:18px;
+}
+
+.left{
+display:flex;
+align-items:center;
+}
+
+.dot{
+width:14px;
+height:14px;
+border-radius:50%;
+margin-right:10px;
+}
+
+.contact{
+text-align:center;
+margin-top:30px;
+}
+
+.contact a{
+display:inline-block;
+padding:14px 28px;
+background:#22c55e;
+color:white;
+text-decoration:none;
+border-radius:10px;
+font-weight:bold;
+}
+
+.footer{
+margin-top:15px;
+line-height:1.8;
+color:#ddd;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="calculator">
+
+<div class="panel">
+
+<h1>Mortgage Calculator</h1>
+
+<label>Home Price</label>
+<input id="homePrice" value="500000">
+
+<label>Down Payment</label>
+<input id="downPayment" value="100000">
+
+<label>Interest Rate (%)</label>
+<input id="interestRate" value="7.50">
+
+<label>Loan Term</label>
+<select id="loanTerm">
+<option value="30">30 Year Fixed</option>
+<option value="20">20 Year Fixed</option>
+<option value="15">15 Year Fixed</option>
+</select>
+
+<label>Annual Property Taxes</label>
+<input id="propertyTaxes" value="0">
+
+<label>Annual Homeowners Insurance</label>
+<input id="insurance" value="1750">
+
+<label>Monthly HOA Fees</label>
+<input id="hoa" value="0">
+
+<button onclick="calculateMortgage()">
+Calculate My Mortgage Payment
+</button>
+
+</div>
+
+<div class="panel">
+
+<h1 style="text-align:center;">
+Estimated Monthly Payment
+</h1>
+
+<div class="chart-wrap">
+
+<svg width="320" height="320">
+
+<circle
+cx="160"
+cy="160"
+r="120"
+fill="none"
+stroke="#333"
+stroke-width="30"/>
+
+<circle
+id="seg1"
+cx="160"
+cy="160"
+r="120"
+fill="none"
+stroke="#0f766e"
+stroke-width="30"
+transform="rotate(-90 160 160)"/>
+
+<circle
+id="seg2"
+cx="160"
+cy="160"
+r="120"
+fill="none"
+stroke="#10b981"
+stroke-width="30"
+transform="rotate(-90 160 160)"/>
+
+<circle
+id="seg3"
+cx="160"
+cy="160"
+r="120"
+fill="none"
+stroke="#ea580c"
+stroke-width="30"
+transform="rotate(-90 160 160)"/>
+
+<circle
+id="seg4"
+cx="160"
+cy="160"
+r="120"
+fill="none"
+stroke="#a21caf"
+stroke-width="30"
+transform="rotate(-90 160 160)"/>
+
+</svg>
+
+<div class="center-payment">
+<div id="payment" class="payment">$2,943</div>
+<div class="permonth">Per Month</div>
+</div>
+
+</div>
+
+<div class="legend">
+
+<div class="row">
+<div class="left">
+<div class="dot" style="background:#0f766e"></div>
+Principal & Interest
+</div>
+<div id="piVal">$2,797</div>
+</div>
+
+<div class="row">
+<div class="left">
+<div class="dot" style="background:#10b981"></div>
+Property Taxes
+</div>
+<div id="taxVal">$0</div>
+</div>
+
+<div class="row">
+<div class="left">
+<div class="dot" style="background:#ea580c"></div>
+Insurance
+</div>
+<div id="insVal">$146</div>
+</div>
+
+<div class="row">
+<div class="left">
+<div class="dot" style="background:#a21caf"></div>
+HOA
+</div>
+<div id="hoaVal">$0</div>
+</div>
+
+</div>
+
+<div class="contact">
+
+tel:8055010104
+Call Rick • 805-501-0104
+</a>
+
+<div class="footer">
+NMLS #333242<br>
+Rickyp@monepro.com
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function money(val){
+return "$"+Math.round(val).toLocaleString();
+}
+
+function setArc(el,start,portion){
+
+let r=120;
+let c=2*Math.PI*r;
+
+el.style.strokeDasharray=
+(c*portion)+" "+c;
+
+el.style.strokeDashoffset=
+-(c*start);
+}
+
+function calculateMortgage(){
+
+let hp=parseFloat(document.getElementById("homePrice").value)||0;
+let dp=parseFloat(document.getElementById("downPayment").value)||0;
+let rate=parseFloat(document.getElementById("interestRate").value)/100/12;
+let years=parseInt(document.getElementById("loanTerm").value);
+
+let yearlyTax=parseFloat(document.getElementById("propertyTaxes").value)||0;
+let yearlyIns=parseFloat(document.getElementById("insurance").value)||0;
+let hoa=parseFloat(document.getElementById("hoa").value)||0;
+
+let loan=hp-dp;
+
+let n=years*12;
+
+let pi=
+loan*
+(rate*Math.pow(1+rate,n))/
+(Math.pow(1+rate,n)-1);
+
+let tax=yearlyTax/12;
+let ins=yearlyIns/12;
+
+let total=
+pi+
+tax+
+ins+
+hoa;
+
+document.getElementById("payment").innerHTML=
+money(total);
+
+document.getElementById("piVal").innerHTML=
+money(pi);
+
+document.getElementById("taxVal").innerHTML=
+money(tax);
+
+document.getElementById("insVal").innerHTML=
+money(ins);
+
+document.getElementById("hoaVal").innerHTML=
+money(hoa);
+
+let p1=pi/total;
+let p2=tax/total;
+let p3=ins/total;
+let p4=hoa/total;
+
+setArc(document.getElementById("seg1"),0,p1);
+setArc(document.getElementById("seg2"),p1,p2);
+setArc(document.getElementById("seg3"),p1+p2,p3);
+setArc(document.getElementById("seg4"),p1+p2+p3,p4);
+
+}
+
+calculateMortgage();
+
+</script>
+
+</body>
+</html>
