@@ -10,7 +10,7 @@
 body{
     background:#000;
     color:#fff;
-    font-family:Calibri,Arial,sans-serif;
+    font-family:Calibri, Arial, sans-serif;
     margin:0;
     padding:20px;
 }
@@ -19,14 +19,13 @@ body{
     max-width:1200px;
     margin:auto;
     border:1px solid #444;
-    border-radius:15px;
+    border-radius:12px;
     padding:20px;
-    background:#000;
 }
 
 .layout{
     display:grid;
-    grid-template-columns:48% 52%;
+    grid-template-columns:45% 55%;
     gap:20px;
 }
 
@@ -37,45 +36,46 @@ body{
 }
 
 h1{
-    margin-top:0;
-    font-size:28px;
+    margin:0 0 5px;
+    font-size:24px;
 }
 
 .subtitle{
     color:#aaa;
-    margin-bottom:20px;
+    margin-bottom:15px;
+    font-size:14px;
 }
 
 label{
     display:block;
-    margin-top:10px;
-    margin-bottom:4px;
-    font-size:14px;
+    margin-top:8px;
+    margin-bottom:3px;
+    font-size:12px;
     font-weight:600;
 }
 
 input,
 select{
     width:100%;
-    height:42px;
-    padding:0 10px;
-    border:1px solid #444;
-    border-radius:6px;
+    height:34px;
+    border:1px solid #555;
+    border-radius:4px;
     background:#111;
-    color:white;
-    font-size:15px;
+    color:#fff;
+    padding:0 8px;
     box-sizing:border-box;
+    font-size:13px;
 }
 
 .calc-btn{
     width:100%;
-    margin-top:18px;
-    height:46px;
+    margin-top:15px;
+    height:40px;
     border:none;
-    border-radius:8px;
+    border-radius:5px;
     background:#22c55e;
-    color:white;
-    font-size:18px;
+    color:#fff;
+    font-size:16px;
     font-weight:bold;
     cursor:pointer;
 }
@@ -86,25 +86,25 @@ select{
 
 .chart-box{
     border:1px solid #444;
-    border-radius:12px;
-    padding:15px;
+    border-radius:10px;
+    padding:20px 25px;
 }
 
 .chart-title{
     text-align:center;
-    font-size:28px;
+    font-size:22px;
     font-weight:bold;
-    margin-bottom:15px;
+    margin-bottom:10px;
 }
 
 .chart-wrap{
     position:relative;
-    width:260px;
-    height:260px;
+    width:240px;
+    height:240px;
     margin:auto;
 }
 
-.center-payment{
+.center-text{
     position:absolute;
     top:50%;
     left:50%;
@@ -113,13 +113,13 @@ select{
 }
 
 .payment{
-    font-size:42px;
+    font-size:34px;
     font-weight:bold;
 }
 
-.per-month{
-    color:#bbb;
-    font-size:18px;
+.permonth{
+    color:#aaa;
+    font-size:15px;
 }
 
 .legend{
@@ -129,7 +129,8 @@ select{
 .legend-row{
     display:flex;
     justify-content:space-between;
-    padding:10px 0;
+    align-items:center;
+    padding:12px 8px;
     border-bottom:1px solid #333;
 }
 
@@ -147,23 +148,23 @@ select{
 
 .contact{
     text-align:center;
-    margin-top:20px;
+    margin-top:25px;
 }
 
 .contact-button{
-    background:#22c55e;
-    padding:12px 24px;
-    border-radius:8px;
-    text-decoration:none;
-    color:white;
-    font-weight:bold;
     display:inline-block;
+    background:#22c55e;
+    color:white;
+    padding:10px 20px;
+    border-radius:6px;
+    text-decoration:none;
+    font-weight:bold;
 }
 
 .footer{
     margin-top:15px;
-    color:#ccc;
     line-height:1.8;
+    color:#ccc;
 }
 
 </style>
@@ -180,7 +181,7 @@ select{
 <h1>MoneyPro Mortgage Calculator</h1>
 
 <div class="subtitle">
-Estimate your payment including taxes, insurance and HOA.
+Estimate your payment including taxes, insurance and HOA dues.
 </div>
 
 <label>Home Price</label>
@@ -205,7 +206,7 @@ Estimate your payment including taxes, insurance and HOA.
 <label>Annual Homeowners Insurance</label>
 <input id="insurance" type="number" value="1750">
 
-<label>Monthly HOA</label>
+<label>Monthly HOA Fees</label>
 <input id="hoa" type="number" value="0">
 
 <button class="calc-btn" onclick="calculateMortgage()">
@@ -222,32 +223,58 @@ Estimated Monthly Payment
 
 <div class="chart-wrap">
 
-<svg width="260" height="260">
+<svg width="240" height="240">
 
 <circle
-cx="130"
-cy="130"
-r="95"
+cx="120"
+cy="120"
+r="80"
 stroke="#222"
 stroke-width="24"
-fill="none"/>
+fill="none"
+/>
 
-<circle
-id="donut"
-cx="130"
-cy="130"
-r="95"
+<circle id="seg1"
+cx="120" cy="120" r="80"
 stroke="#0f766e"
 stroke-width="24"
 fill="none"
-stroke-linecap="round"
-transform="rotate(-90 130 130)"/>
+stroke-linecap="butt"
+transform="rotate(-90 120 120)"
+/>
+
+<circle id="seg2"
+cx="120" cy="120" r="80"
+stroke="#10b981"
+stroke-width="24"
+fill="none"
+stroke-linecap="butt"
+transform="rotate(-90 120 120)"
+/>
+
+<circle id="seg3"
+cx="120" cy="120" r="80"
+stroke="#ea580c"
+stroke-width="24"
+fill="none"
+stroke-linecap="butt"
+transform="rotate(-90 120 120)"
+/>
+
+<circle id="seg4"
+cx="120" cy="120" r="80"
+stroke="#a21caf"
+stroke-width="24"
+fill="none"
+stroke-linecap="butt"
+transform="rotate(-90 120 120)"
+/>
 
 </svg>
 
-<div class="center-payment">
+<div class="center-text">
 <div id="payment" class="payment">$2,943</div>
-<div class="per-month">Per Month</div>
+<div class="permonth">Per Month</div>
 </div>
 
 </div>
@@ -259,7 +286,7 @@ transform="rotate(-90 130 130)"/>
 <div class="dot" style="background:#0f766e;"></div>
 Principal & Interest
 </div>
-<div id="piVal">$2,797</div>
+<div id="piVal">$0</div>
 </div>
 
 <div class="legend-row">
@@ -275,9 +302,130 @@ Taxes
 <div class="dot" style="background:#ea580c;"></div>
 Insurance
 </div>
-<div id="insVal">$146</div>
+<div id="insVal">$0</div>
 </div>
 
 <div class="legend-row">
 <div class="legend-left">
-<div class="dot" style="background
+<div class="dot" style="background:#a21caf;"></div>
+HOA
+</div>
+<div id="hoaVal">$0</div>
+</div>
+
+</div>
+
+<div class="contact">
+
+tel:8055010104
+Call Rick • 805-501-0104
+</a>
+
+<div class="footer">
+<strong>Rick Plutchak</strong><br>
+Mortgage Banking Professional<br>
+NMLS #333242<br>
+Rickyp@monepro.com
+Rickyp@monepro.com
+</a>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function money(v){
+    return '$' + Math.round(v).toLocaleString();
+}
+
+function drawArc(id,startPercent,sizePercent){
+
+    const r=80;
+    const c=2*Math.PI*r;
+
+    const arc=document.getElementById(id);
+
+    arc.style.strokeDasharray=
+        (sizePercent*c)+" "+c;
+
+    arc.style.strokeDashoffset=
+        -(startPercent*c);
+}
+
+function calculateMortgage(){
+
+    const hp=
+        Number(document.getElementById('homePrice').value);
+
+    const dp=
+        Number(document.getElementById('downPayment').value);
+
+    const rate=
+        Number(document.getElementById('interestRate').value)/100/12;
+
+    const years=
+        Number(document.getElementById('loanTerm').value);
+
+    const taxes=
+        Number(document.getElementById('propertyTaxes').value)/12;
+
+    const insurance=
+        Number(document.getElementById('insurance').value)/12;
+
+    const hoa=
+        Number(document.getElementById('hoa').value);
+
+    const loan=hp-dp;
+
+    const n=years*12;
+
+    const pi=
+        loan *
+        (rate*Math.pow(1+rate,n)) /
+        (Math.pow(1+rate,n)-1);
+
+    const total=
+        pi+
+        taxes+
+        insurance+
+        hoa;
+
+    document.getElementById('payment').innerHTML=
+        money(total);
+
+    document.getElementById('piVal').innerHTML=
+        money(pi);
+
+    document.getElementById('taxVal').innerHTML=
+        money(taxes);
+
+    document.getElementById('insVal').innerHTML=
+        money(insurance);
+
+    document.getElementById('hoaVal').innerHTML=
+        money(hoa);
+
+    let p1=pi/total;
+    let p2=taxes/total;
+    let p3=insurance/total;
+    let p4=hoa/total;
+
+    drawArc("seg1",0,p1);
+    drawArc("seg2",p1,p2);
+    drawArc("seg3",p1+p2,p3);
+    drawArc("seg4",p1+p2+p3,p4);
+
+}
+
+calculateMortgage();
+
+</script>
+
+</body>
+</html>
