@@ -330,7 +330,7 @@ HOA
 
 <div class="contact">
 
-tel:8055010104
+
 Call Rick • 805‑501‑0104
 </a>
 
@@ -338,11 +338,9 @@ Call Rick • 805‑501‑0104
 
 <strong>Rick Plutchak</strong><br>
 
-Mortgage Banking Professional<br>
-
 NMLS #333242<br>
 
-Rickyp@monepro.com
+<a href="mailto:Rickyp@monepro.com">
 Rickyp@monepro.com
 </a>
 
@@ -390,57 +388,74 @@ calculateMortgage();
 
 function calculateMortgage(){
 
-let hp=cleanNumber(homePrice.value);
-let dp=cleanNumber(downPayment.value);
+let hp=cleanNumber(
+document.getElementById('homePrice').value
+);
 
-let taxesYear=cleanNumber(propertyTaxes.value);
-let insuranceYear=
-cleanNumber(
+let dp=cleanNumber(
+document.getElementById('downPayment').value
+);
+
+let taxesYear=cleanNumber(
+document.getElementById('propertyTaxes').value
+);
+
+let insuranceYear=cleanNumber(
 document.getElementById('insurance').value
-);  
-let hoa=cleanNumber(hoa.value);
+);
 
-let rate=parseFloat(interestRate.value)/100/12;
-let years=parseFloat(loanTerm.value);
+let hoaFee=cleanNumber(
+document.getElementById('hoa').value
+);
+
+let rate=
+parseFloat(
+document.getElementById('interestRate').value
+)/100/12;
+
+let years=
+parseFloat(
+document.getElementById('loanTerm').value
+);
 
 let loan=hp-dp;
 let n=years*12;
 
 let pi=
-
 loan *
-
 (rate*Math.pow(1+rate,n)) /
-
 (Math.pow(1+rate,n)-1);
 
 let taxes=taxesYear/12;
-let monthlyinsurance=insuranceYear/12;
+let monthlyInsurance=insuranceYear/12;
 
 let total=
-pi+taxes+monthlyinsurance+hoa;
+pi+
+taxes+
+monthlyInsurance+
+hoaFee;
 
-payment.innerHTML=money(total);
+document.getElementById('payment').innerHTML=
+money(total);
 
 let p1=(pi/total)*100;
 let p2=(taxes/total)*100;
-let p3=(monthlyinsurance/total)*100;
-let p4=(hoa/total)*100;
+let p3=(monthlyInsurance/total)*100;
+let p4=(hoaFee/total)*100;
 
-piVal.innerHTML=
+document.getElementById('piVal').innerHTML=
 money(pi)+" ("+p1.toFixed(1)+"%)";
 
-taxVal.innerHTML=
+document.getElementById('taxVal').innerHTML=
 money(taxes)+" ("+p2.toFixed(1)+"%)";
 
-insVal.innerHTML=
-money(monthlyinsurance)+" ("+p3.toFixed(1)+"%)";
+document.getElementById('insVal').innerHTML=
+money(monthlyInsurance)+" ("+p3.toFixed(1)+"%)";
 
-hoaVal.innerHTML=
-money(hoa)+" ("+p4.toFixed(1)+"%)";
+document.getElementById('hoaVal').innerHTML=
+money(hoaFee)+" ("+p4.toFixed(1)+"%)";
 
-document.getElementById("donut").style.background =
-
+document.getElementById('donut').style.background=
 `conic-gradient(
 #8B5CF6 0% ${p1}%,
 #000 ${p1}% ${p1+1}%,
@@ -449,6 +464,9 @@ document.getElementById("donut").style.background =
 #F97316 ${p1+p2+1}% ${p1+p2+p3}%,
 #000 ${p1+p2+p3}% ${p1+p2+p3+1}%,
 #065F46 ${p1+p2+p3+1}% 100%
+)`;
+
+
 )`;
 
 }
