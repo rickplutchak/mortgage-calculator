@@ -394,7 +394,10 @@ let hp=cleanNumber(homePrice.value);
 let dp=cleanNumber(downPayment.value);
 
 let taxesYear=cleanNumber(propertyTaxes.value);
-let insuranceYear=cleanNumber(insurance.value);
+let insuranceYear=
+cleanNumber(
+document.getElementById('insurance').value
+);  
 let hoa=cleanNumber(hoa.value);
 
 let rate=parseFloat(interestRate.value)/100/12;
@@ -412,16 +415,16 @@ loan *
 (Math.pow(1+rate,n)-1);
 
 let taxes=taxesYear/12;
-let insurance=insuranceYear/12;
+let monthlyinsurance=insuranceYear/12;
 
 let total=
-pi+taxes+insurance+hoa;
+pi+taxes+monthlyinsurance+hoa;
 
 payment.innerHTML=money(total);
 
 let p1=(pi/total)*100;
 let p2=(taxes/total)*100;
-let p3=(insurance/total)*100;
+let p3=(monthlyinsurance/total)*100;
 let p4=(hoa/total)*100;
 
 piVal.innerHTML=
@@ -431,7 +434,7 @@ taxVal.innerHTML=
 money(taxes)+" ("+p2.toFixed(1)+"%)";
 
 insVal.innerHTML=
-money(insurance)+" ("+p3.toFixed(1)+"%)";
+money(monthlyinsurance)+" ("+p3.toFixed(1)+"%)";
 
 hoaVal.innerHTML=
 money(hoa)+" ("+p4.toFixed(1)+"%)";
